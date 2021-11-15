@@ -1,8 +1,10 @@
 FROM docker.io/python:3.6
 
 COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements_36.txt
 EXPOSE 3000
 USER nobody
 
-ENTRYPOINT ["flask", "run", "-h", "0.0.0.0", "-p", "3000"]
+ENV FLASK_APP=src
+ENV FLASK_ENV=production
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "3000"]
