@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from dis import Bytecode
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, origins=["*"])
 
     @app.route('/', methods=['GET', 'POST'])
     def index():
@@ -26,5 +28,5 @@ def create_app():
             print('Error!')
             print(e)
             return ''
-    
+
     return app

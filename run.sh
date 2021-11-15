@@ -1,5 +1,5 @@
 #!/bin/bash
 
-set FLASK_APP=src
-set FLASK_ENV=production
+export FLASK_APP=src
+export FLASK_ENV=production
 flask run
