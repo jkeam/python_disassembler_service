@@ -10,23 +10,21 @@ def create_app():
     def index():
         if request.method == 'GET':
             return 'Welcome to the Python Disassembler Service'
-
         try:
             json_data = request.get_json()
             code = json_data['code']
 
-            str = ''
+            diss_code = ''
             bytecode = Bytecode(code)
             for instr in bytecode:
-                str += f'{instr}\n'
-            return str
+                diss_code += f'{instr}\n'
+            return diss_code
         except KeyError as e:
-            print('Missing code key.')
-            print(request.get_json())
-            return ''
+            app.logger.error('Missing code key.')
+            app.logger.error(request.get_json())
+            return 'Invalid request'
         except Exception as e:
-            print('Error!')
-            print(e)
-            return ''
-
+            app.logger.error('Error!')
+            app.logger.error(e)
+            return str(e).replace('<disassembly>, ', '')
     return app
